@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { RegisterForm } from "./register-form";
 
-export const metadata: Metadata = { title: "Create account · MyMoney" };
+export const metadata: Metadata = { title: "Create account" };
 
 export default function RegisterPage() {
   return <RegisterForm />;
