@@ -1,26 +1,248 @@
 @import "tailwindcss";
 
+/* Class-based theming (driven by next-themes) */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+/* -------------------------------------------------------------------------
+   MyMoney design tokens
+   Dark charcoal / gray-green canvas, warm cream primary, soft green income,
+   coral expense — matching the reference application.
+   ------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  --background: #191c19;
+  --surface: #1f231f;
+  --card: #232823;
+  --card-elevated: #2a302a;
+
+  --foreground: #f0e6c8;
+  --card-foreground: #f0e6c8;
+
+  --primary: #e8d9a0;
+  --primary-foreground: #1a1d1a;
+  --accent: #e8d9a0;
+  --accent-foreground: #1a1d1a;
+
+  --income: #7fd1a6;
+  --expense: #f08a72;
+  --warning: #e6b95f;
+  --danger: #ef6f5b;
+
+  --muted: #96967f;
+  --muted-foreground: #96967f;
+
+  --border: rgba(232, 217, 160, 0.14);
+  --input: #2b3027;
+  --ring: #e8d9a0;
+  --overlay: rgba(8, 10, 8, 0.66);
+
+  --shadow-soft: 0 10px 30px -12px rgba(0, 0, 0, 0.55);
+}
+
+.light {
+  color-scheme: light;
+
+  --background: #f5f2e9;
+  --surface: #fffdf7;
+  --card: #ffffff;
+  --card-elevated: #fffdf6;
+
+  --foreground: #23261f;
+  --card-foreground: #23261f;
+
+  --primary: #a9862b;
+  --primary-foreground: #fffdf5;
+  --accent: #b8923a;
+  --accent-foreground: #fffdf5;
+
+  --income: #1f8a5b;
+  --expense: #c4553b;
+  --warning: #a8761c;
+  --danger: #c2402c;
+
+  --muted: #6f6d5c;
+  --muted-foreground: #6f6d5c;
+
+  --border: rgba(35, 38, 31, 0.13);
+  --input: #efeadd;
+  --ring: #a9862b;
+  --overlay: rgba(30, 32, 26, 0.42);
+
+  --shadow-soft: 0 10px 30px -16px rgba(35, 38, 31, 0.35);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-elevated: var(--card-elevated);
   --color-foreground: var(--foreground);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-income: var(--income);
+  --color-expense: var(--expense);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+
+  --shadow-soft: var(--shadow-soft);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Thin, theme-aware scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted) 40%, transparent);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--muted) 65%, transparent);
+  background-clip: content-box;
+}
+
+@keyframes mm-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes mm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes mm-slide-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes mm-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-fade {
+    animation: mm-fade 0.18s ease-out both;
+  }
+  .animate-rise {
+    animation: mm-rise 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-drawer {
+    animation: mm-slide-left 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-sheet {
+    animation: mm-slide-up 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

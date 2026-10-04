@@ -1,0 +1,244 @@
+// MyMoney — Prisma schema
+// PostgreSQL (Neon) + Prisma 6
+//
+// Money rules:
+//  - All monetary values use Decimal(18, 4). NEVER float/double.
+//  - `amount` is always stored in the transaction's own currency.
+//  - `baseAmount` is the amount converted into the user's default currency
+//    at the stored `exchangeRate`, so reporting never loses the original value.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum AccountType {
+  cash
+  bank
+  card
+  mobile_wallet
+  savings
+  other
+}
+
+enum CategoryType {
+  income
+  expense
+}
+
+enum TransactionType {
+  income
+  expense
+}
+
+enum BudgetPeriod {
+  weekly
+  monthly
+  custom
+}
+
+enum ThemeMode {
+  dark
+  light
+  system
+}
+
+// ---------------------------------------------------------------------------
+// Core
+// ---------------------------------------------------------------------------
+
+model User {
+  id              String   @id @default(cuid())
+  name            String?
+  email           String   @unique
+  passwordHash    String
+  defaultCurrency String   @default("BDT")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  accounts     Account[]
+  categories   Category[]
+  transactions Transaction[]
+  transfers    Transfer[]
+  budgets      Budget[]
+  preference   UserPreference?
+
+  @@index([email])
+}
+
+model Currency {
+  code          String   @id
+  name          String
+  symbol        String
+  flag          String
+  decimalPlaces Int      @default(2)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  accounts     Account[]
+  transactions Transaction[]
+  budgets      Budget[]
+
+  @@index([isActive])
+}
+
+model Account {
+  id             String      @id @default(cuid())
+  userId         String
+  name           String
+  type           AccountType @default(cash)
+  currencyCode   String      @default("BDT")
+  openingBalance Decimal     @default(0) @db.Decimal(18, 4)
+  description    String?
+  icon           String      @default("Wallet")
+  color          String      @default("#E8D9A0")
+  isActive       Boolean     @default(true)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  currency     Currency      @relation(fields: [currencyCode], references: [code])
+  transactions Transaction[]
+  transfersOut Transfer[]    @relation("TransferFrom")
+  transfersIn  Transfer[]    @relation("TransferTo")
+
+  @@index([userId])
+  @@index([userId, isActive])
+  @@index([currencyCode])
+}
+
+model Category {
+  id        String       @id @default(cuid())
+  userId    String
+  name      String
+  type      CategoryType
+  icon      String       @default("Tag")
+  color     String       @default("#E8D9A0")
+  isActive  Boolean      @default(true)
+  sortOrder Int          @default(0)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  budgets      BudgetCategory[]
+
+  @@unique([userId, name, type])
+  @@index([userId, type, sortOrder])
+}
+
+model Transaction {
+  id              String          @id @default(cuid())
+  userId          String
+  accountId       String
+  categoryId      String?
+  type            TransactionType
+  amount          Decimal         @db.Decimal(18, 4)
+  currencyCode    String          @default("BDT")
+  exchangeRate    Decimal         @default(1) @db.Decimal(18, 8)
+  baseAmount      Decimal         @db.Decimal(18, 4)
+  transactionDate DateTime
+  note            String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account  Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  currency Currency  @relation(fields: [currencyCode], references: [code])
+
+  @@index([userId, transactionDate])
+  @@index([userId, accountId])
+  @@index([userId, categoryId])
+  @@index([userId, type, transactionDate])
+  @@index([accountId])
+}
+
+model Transfer {
+  id              String   @id @default(cuid())
+  userId          String
+  fromAccountId   String
+  toAccountId     String
+  fromAmount      Decimal  @db.Decimal(18, 4)
+  fromCurrency    String
+  toAmount        Decimal  @db.Decimal(18, 4)
+  toCurrency      String
+  exchangeRate    Decimal  @default(1) @db.Decimal(18, 8)
+  transactionDate DateTime
+  note            String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fromAccount Account @relation("TransferFrom", fields: [fromAccountId], references: [id], onDelete: Cascade)
+  toAccount   Account @relation("TransferTo", fields: [toAccountId], references: [id], onDelete: Cascade)
+
+  @@index([userId, transactionDate])
+  @@index([fromAccountId])
+  @@index([toAccountId])
+}
+
+model Budget {
+  id           String       @id @default(cuid())
+  userId       String
+  name         String
+  amount       Decimal      @db.Decimal(18, 4)
+  currencyCode String       @default("BDT")
+  periodType   BudgetPeriod @default(monthly)
+  startDate    DateTime
+  endDate      DateTime?
+  isActive     Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  currency   Currency         @relation(fields: [currencyCode], references: [code])
+  categories BudgetCategory[]
+
+  @@index([userId, isActive])
+}
+
+model BudgetCategory {
+  id         String   @id @default(cuid())
+  budgetId   String
+  categoryId String
+  createdAt  DateTime @default(now())
+
+  budget   Budget   @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([budgetId, categoryId])
+  @@index([categoryId])
+}
+
+model UserPreference {
+  id                       String    @id @default(cuid())
+  userId                   String    @unique
+  defaultCurrency          String    @default("BDT")
+  theme                    ThemeMode @default(dark)
+  accentColor              String    @default("#E8D9A0")
+  dateFormat               String    @default("dd MMM yyyy")
+  numberFormat             String    @default("en-US")
+  timezone                 String    @default("Asia/Dhaka")
+  firstDayOfWeek           Int       @default(0) // 0 = Sunday
+  language                 String    @default("en")
+  notificationsEnabled     Boolean   @default(true)
+  budgetWarningEnabled     Boolean   @default(true)
+  monthlySummaryEnabled    Boolean   @default(true)
+  largeTransactionEnabled  Boolean   @default(false)
+  largeTransactionAmount   Decimal?  @db.Decimal(18, 4)
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

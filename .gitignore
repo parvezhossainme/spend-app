@@ -32,6 +32,18 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# ai / agent tooling — not part of the sharable codebase
+/AGENTS.md
+/CLAUDE.md
+/.commandcode/
+/.claude/
+/.cursor/
+/.windsurf/
+/.aider*
+/.mcp.json
+/.github/copilot-instructions.md
 
 # vercel
 .vercel
