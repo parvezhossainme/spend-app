@@ -16,11 +16,11 @@ const VARIANTS: Record<Variant, string> = {
 };
 
 const SIZES: Record<Size, string> = {
-  sm: "h-9 px-3 text-sm gap-1.5 rounded-[var(--radius-sm)]",
+  sm: "h-10 px-3 text-sm gap-1.5 rounded-[var(--radius-sm)]",
   md: "h-11 px-4 text-sm gap-2 rounded-[var(--radius-md)]",
   lg: "h-12 px-6 text-base gap-2 rounded-[var(--radius-md)]",
   icon: "h-11 w-11 rounded-full",
-  "icon-sm": "h-9 w-9 rounded-full",
+  "icon-sm": "h-10 w-10 rounded-full",
 };
 
 export type ButtonProps = React.ComponentProps<"button"> & {

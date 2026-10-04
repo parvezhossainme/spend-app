@@ -52,7 +52,7 @@ export function AccountDetail({
             <div className="flex items-center gap-3">
               <IconBadge name={account.icon} color={account.color} className="size-12" iconClassName="size-5" />
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   Current balance
                 </p>
                 <MoneyDisplay value={account.currentBalance} currency={account.currencyCode} className="text-2xl font-bold" />

@@ -95,7 +95,7 @@ export function RecordsView({
             type="button"
             aria-label="Filters"
             onClick={() => setFiltersOpen(true)}
-            className="relative grid size-10 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+            className="relative grid size-11 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
           >
             <SlidersHorizontal className="size-5" />
             {activeFilters > 0 ? (

@@ -32,7 +32,7 @@ export function PageHeader({
   const [searchOpen, setSearchOpen] = React.useState(false);
 
   const iconButton =
-    "grid size-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card hover:text-foreground";
+    "grid size-11 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card hover:text-foreground";
 
   return (
     <>
@@ -42,7 +42,7 @@ export function PageHeader({
           className,
         )}
       >
-        <div className="flex items-center gap-2 px-3 py-3 sm:px-4 lg:px-6">
+        <div className="flex items-center gap-1 px-2 py-2 sm:gap-2 sm:px-4 sm:py-3 lg:px-6">
           {back ? (
             <button type="button" aria-label="Go back" className={iconButton} onClick={() => router.back()}>
               <ArrowLeft className="size-5" />

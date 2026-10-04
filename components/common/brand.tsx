@@ -29,7 +29,7 @@ export function Brand({
       <div className="leading-none">
         <p className="text-[15px] font-semibold tracking-tight text-foreground">MyMoney</p>
         {showVersion ? (
-          <p className="mt-0.5 text-[11px] text-muted-foreground">v{version ?? "1.0.0"}</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">v{version ?? "1.0.0"}</p>
         ) : null}
       </div>
     </div>

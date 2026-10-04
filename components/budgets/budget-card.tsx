@@ -33,7 +33,7 @@ export function BudgetCard({
               {budget.categories.map((category) => (
                 <span
                   key={category.id}
-                  className="flex items-center gap-1 rounded-full bg-card-elevated px-2 py-0.5 text-[11px] text-muted-foreground"
+                  className="flex items-center gap-1 rounded-full bg-card-elevated px-2 py-0.5 text-xs text-muted-foreground"
                 >
                   <IconBadge name={category.icon} color={category.color} className="size-4" iconClassName="size-2.5" />
                   {category.name}

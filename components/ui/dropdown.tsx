@@ -44,7 +44,7 @@ export function DropdownMenu({
           event.stopPropagation();
           setOpen((value) => !value);
         }}
-        className="grid size-9 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card-elevated hover:text-foreground"
+        className="grid size-11 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card-elevated hover:text-foreground"
       >
         {trigger}
       </button>

@@ -191,7 +191,7 @@ export function PreferencesForm({ initial }: { initial: PreferencesFormValues })
                   aria-label={`Accent ${color}`}
                   onClick={() => chooseAccent(color)}
                   className={cn(
-                    "grid size-8 place-items-center rounded-full border transition-transform",
+                    "grid size-11 place-items-center rounded-full border transition-transform",
                     form.accentColor.toLowerCase() === color.toLowerCase()
                       ? "scale-110 border-foreground"
                       : "border-transparent",

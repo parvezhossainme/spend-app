@@ -230,7 +230,7 @@ function BreakdownPanel({
       <div className="grid gap-3 sm:grid-cols-3">
         <Card>
           <CardContent className="p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Total {tone}
             </p>
             <MoneyDisplay value={breakdown.total} currency={currency} tone={tone} className="mt-1 block text-xl font-bold" />
@@ -238,13 +238,13 @@ function BreakdownPanel({
         </Card>
         <Card>
           <CardContent className="p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Categories</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Categories</p>
             <p className="num mt-1 text-xl font-bold">{breakdown.items.length}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Largest {tone}
             </p>
             {largest ? (
@@ -368,7 +368,7 @@ function FlowPanel({
       <div className="grid gap-3 sm:grid-cols-3">
         <Card>
           <CardContent className="p-4">
-            <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               <TrendingUp className="size-3.5 text-income" /> Income
             </p>
             <MoneyDisplay value={String(totalIncome)} currency={currency} tone="income" className="mt-1 block text-xl font-bold" />
@@ -376,7 +376,7 @@ function FlowPanel({
         </Card>
         <Card>
           <CardContent className="p-4">
-            <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               <TrendingDown className="size-3.5 text-expense" /> Expense
             </p>
             <MoneyDisplay value={String(totalExpense)} currency={currency} tone="expense" className="mt-1 block text-xl font-bold" />
@@ -384,7 +384,7 @@ function FlowPanel({
         </Card>
         <Card>
           <CardContent className="p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Net balance</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Net balance</p>
             <MoneyDisplay
               value={String(net)}
               currency={currency}
@@ -446,7 +446,7 @@ function AccountsPanel({
     <>
       <Card>
         <CardContent className="p-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Total balance</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Total balance</p>
           <MoneyDisplay value={totalBalance} currency={currency} className="mt-1 block text-2xl font-bold" />
         </CardContent>
       </Card>
@@ -483,18 +483,18 @@ function AccountsPanel({
                   />
                 </div>
 
-                <div className="mt-2 grid grid-cols-4 gap-2 pl-12 text-[11px] text-muted-foreground">
+                <div className="mt-2 grid grid-cols-4 gap-2 pl-12 text-xs text-muted-foreground">
                   <span>
-                    In <MoneyDisplay value={row.account.parts.income} currency={row.account.currencyCode} tone="income" className="text-[11px]" />
+                    In <MoneyDisplay value={row.account.parts.income} currency={row.account.currencyCode} tone="income" className="text-xs" />
                   </span>
                   <span>
-                    Out <MoneyDisplay value={row.account.parts.expense} currency={row.account.currencyCode} tone="expense" className="text-[11px]" />
+                    Out <MoneyDisplay value={row.account.parts.expense} currency={row.account.currencyCode} tone="expense" className="text-xs" />
                   </span>
                   <span>
-                    +T <MoneyDisplay value={row.account.parts.transfersIn} currency={row.account.currencyCode} className="text-[11px]" />
+                    +T <MoneyDisplay value={row.account.parts.transfersIn} currency={row.account.currencyCode} className="text-xs" />
                   </span>
                   <span>
-                    −T <MoneyDisplay value={row.account.parts.transfersOut} currency={row.account.currencyCode} className="text-[11px]" />
+                    −T <MoneyDisplay value={row.account.parts.transfersOut} currency={row.account.currencyCode} className="text-xs" />
                   </span>
                 </div>
               </li>

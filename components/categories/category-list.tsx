@@ -31,7 +31,7 @@ export function CategoryList({
 }) {
   return (
     <ul className="divide-y divide-[var(--border)] rounded-[var(--radius-xl)] border border-border bg-card shadow-[var(--shadow-soft)]">
-      {categories.map((category, index) => (
+      {categories.map((category) => (
         <li key={category.id} className="flex items-center gap-3 px-3 py-3">
           <IconBadge name={category.icon} color={category.color} />
           <button type="button" onClick={() => onEdit(category)} className="min-w-0 flex-1 text-left">
@@ -80,7 +80,6 @@ export function CategoryList({
               </>
             )}
           </DropdownMenu>
-          <span className="sr-only">{index + 1}</span>
         </li>
       ))}
     </ul>

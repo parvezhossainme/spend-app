@@ -26,7 +26,7 @@ export function MonthSelector({
   };
 
   const buttonClass =
-    "grid size-9 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card hover:text-foreground";
+    "grid size-11 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card hover:text-foreground";
 
   return (
     <div className="flex items-center justify-center gap-1 px-3 pb-3 sm:px-4 lg:px-6">
@@ -41,7 +41,7 @@ export function MonthSelector({
           <Link
             href={href()}
             className={cn(
-              "rounded-full border border-border px-2 py-0.5 text-[10px] font-medium text-muted-foreground",
+              "inline-flex h-8 items-center rounded-full border border-border px-2.5 text-xs font-medium text-muted-foreground",
               "transition-colors hover:text-[var(--accent)]",
             )}
           >

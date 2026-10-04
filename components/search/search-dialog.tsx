@@ -308,7 +308,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
 function ResultGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="px-2 pb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{title}</p>
+      <p className="px-2 pb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</p>
       <Separator className="mb-1" />
       <div>{children}</div>
     </div>

@@ -49,7 +49,7 @@ export function AccountsView({
       <div className="pt-4">
         <section className="px-3 pb-4 sm:px-4 lg:px-6">
           <div className="rounded-[var(--radius-xl)] border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Total balance
             </p>
             <MoneyDisplay value={totalBalance} currency={baseCurrency} className="mt-1 block text-2xl font-bold" />

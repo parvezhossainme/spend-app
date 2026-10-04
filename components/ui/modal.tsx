@@ -65,7 +65,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="-mr-1 -mt-1 grid size-9 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card-elevated hover:text-foreground"
+              className="-mr-1.5 -mt-1.5 grid size-11 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-card-elevated hover:text-foreground"
             >
               <X className="size-4" />
             </button>

@@ -65,7 +65,7 @@ export function IconPicker({
               aria-label={`Colour ${preset}`}
               onClick={() => onChange({ color: preset })}
               className={cn(
-                "grid size-8 place-items-center rounded-full border transition-transform",
+                "grid size-11 place-items-center rounded-full border transition-transform",
                 color.toLowerCase() === preset.toLowerCase() ? "border-foreground scale-110" : "border-transparent",
               )}
               style={{ backgroundColor: preset }}
@@ -75,7 +75,7 @@ export function IconPicker({
               ) : null}
             </button>
           ))}
-          <label className="relative grid size-8 cursor-pointer place-items-center overflow-hidden rounded-full border border-dashed border-border text-[10px] text-muted-foreground">
+          <label className="relative grid size-11 cursor-pointer place-items-center overflow-hidden rounded-full border border-dashed border-border text-xs text-muted-foreground">
             <input
               type="color"
               value={color}

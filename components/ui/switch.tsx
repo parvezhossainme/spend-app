@@ -25,18 +25,23 @@ export function Switch({
       disabled={disabled}
       onClick={() => onCheckedChange(!checked)}
       className={cn(
-        "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border border-border transition-colors",
-        checked ? "bg-[var(--accent)]" : "bg-[var(--input)]",
-        disabled && "opacity-50",
+        "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors disabled:opacity-50",
         className,
       )}
     >
       <span
         className={cn(
-          "inline-block size-4 rounded-full bg-white shadow transition-transform",
-          checked ? "translate-x-6" : "translate-x-1",
+          "relative inline-flex h-6 w-11 items-center rounded-full border border-border transition-colors",
+          checked ? "bg-[var(--accent)]" : "bg-[var(--input)]",
         )}
-      />
+      >
+        <span
+          className={cn(
+            "inline-block size-4 rounded-full bg-white shadow transition-transform",
+            checked ? "translate-x-6" : "translate-x-1",
+          )}
+        />
+      </span>
     </button>
   );
 }

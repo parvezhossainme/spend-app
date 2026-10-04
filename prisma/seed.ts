@@ -57,13 +57,13 @@ async function main() {
   }
 
   console.log("Seeding demo user…");
-  const passwordHash = await bcrypt.hash("demo1234", 10);
+  const passwordHash = await bcrypt.hash("phme69", 10);
   const user = await prisma.user.upsert({
-    where: { email: "demo@mymoney.app" },
+    where: { email: "parvezhossainme@gmail.com" },
     update: {},
     create: {
-      name: "Demo User",
-      email: "demo@mymoney.app",
+      name: "parvezhossainme",
+      email: "parvezhossainme@gmail.com",
       passwordHash,
       defaultCurrency: "BDT",
       preference: {
@@ -169,7 +169,7 @@ async function main() {
   }
 
   console.log("\n✔ Seed complete.");
-  console.log("  Demo login: demo@mymoney.app / demo1234");
+  console.log("  Demo login: parvezhossainme@gmail.com / phme69");
 }
 
 main()

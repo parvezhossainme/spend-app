@@ -71,7 +71,7 @@ export function CategoriesView({ categories }: { categories: CategoryDTO[] }) {
             <button
               type="button"
               onClick={() => openCreate("expense")}
-              className="text-xs text-[var(--accent)] hover:underline"
+              className="-mr-2 inline-flex h-11 items-center rounded-full px-3 text-xs font-medium text-[var(--accent)] transition-colors hover:bg-[var(--accent)]/10"
             >
               + Add
             </button>
@@ -99,7 +99,7 @@ export function CategoriesView({ categories }: { categories: CategoryDTO[] }) {
             <button
               type="button"
               onClick={() => openCreate("income")}
-              className="text-xs text-[var(--accent)] hover:underline"
+              className="-mr-2 inline-flex h-11 items-center rounded-full px-3 text-xs font-medium text-[var(--accent)] transition-colors hover:bg-[var(--accent)]/10"
             >
               + Add
             </button>

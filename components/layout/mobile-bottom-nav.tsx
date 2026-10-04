@@ -23,12 +23,12 @@ export function MobileBottomNav() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex flex-col items-center gap-1 px-1 pb-2 pt-2.5 text-[10px] font-medium transition-colors",
+                  "flex flex-col items-center gap-1 px-0.5 pb-2 pt-2.5 text-[11px] font-medium transition-colors",
                   active ? "text-[var(--accent)]" : "text-muted-foreground",
                 )}
               >
                 <item.icon
-                  className={cn("size-[22px] transition-transform", active && "scale-110")}
+                  className={cn("size-6 transition-transform", active && "scale-110")}
                   strokeWidth={active ? 2.4 : 2}
                 />
                 {item.label}
